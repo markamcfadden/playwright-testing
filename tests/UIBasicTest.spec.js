@@ -20,7 +20,7 @@ test.only("First Playwright Test", async ({ browser }) => {
   await userName.fill("");
   await userName.fill("rahulshettyacademy");
   await signInBtn.click();
-  //console.log(await cardTitles.nth(0).textContent());
+  console.log(await cardTitles.nth(0).textContent());
   const allTitles = await cardTitles.allTextContents();
   console.log(allTitles);
 });

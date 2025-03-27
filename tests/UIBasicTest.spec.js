@@ -25,9 +25,24 @@ test("First Playwright Test", async ({ browser }) => {
   console.log(allTitles);
 });
 
-test("Page Playwright Test", async ({ page }) => {
-  await page.goto("https://google.com");
-  //get title - assertion
-  console.log(await page.title());
-  await expect(page).toHaveTitle("Google");
+test.only("UI Controls", async ({ page }) => {
+  await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+  const userName = page.locator("input#username");
+  const password = page.locator("input#password");
+  const signInBtn = page.locator("input#signInBtn");
+  const dropdown = page.locator("select.form-control");
+  const documentLink = page.locator("[href*='documents-request']");
+
+  await userName.fill("rahulshettyacademy");
+  await password.fill("learning");
+  await dropdown.selectOption("consult");
+
+  await page.locator(".radiotextsty").last().click();
+  await page.locator("#okayBtn").click();
+  await expect(page.locator(".radiotextsty").last()).toBeChecked();
+  await page.locator("#terms").click();
+  await expect(page.locator("#terms")).toBeChecked();
+  //console.log(await page.locator(".radiotextsty").last().isChecked());
+  await expect(documentLink).toHaveAttribute("class", "blinkingText");
+  //await page.pause();
 });

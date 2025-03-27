@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 
-test.only("First Playwright Test", async ({ browser }) => {
+test("First Playwright Test", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
 
@@ -23,6 +23,25 @@ test.only("First Playwright Test", async ({ browser }) => {
   console.log(await cardTitles.nth(0).textContent());
   const allTitles = await cardTitles.allTextContents();
   console.log(allTitles);
+});
+
+test.only("E Commerce Sign In", async ({ page }) => {
+  await page.goto("https://rahulshettyacademy.com/client/");
+
+  const email = page.locator("input#userEmail");
+  const password = page.locator("input#userPassword");
+  const loginBtn = page.locator("input#login");
+
+  await email.fill("auto_tests_account@proton.me");
+  await password.fill("Testing4455$");
+  await loginBtn.click();
+
+  const firstCardTitle = await page
+    .locator(".card-body b")
+    .nth(0)
+    .textContent();
+
+  await expect(firstCardTitle).toBe("ZARA COAT 3");
 });
 
 test("Page Playwright Test", async ({ page }) => {

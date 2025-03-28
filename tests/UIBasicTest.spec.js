@@ -25,7 +25,7 @@ test("First Playwright Test", async ({ browser }) => {
   console.log(allTitles);
 });
 
-test.only("UI Controls", async ({ page }) => {
+test("UI Controls", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
   const userName = page.locator("input#username");
   const password = page.locator("input#password");
@@ -45,4 +45,26 @@ test.only("UI Controls", async ({ page }) => {
   //console.log(await page.locator(".radiotextsty").last().isChecked());
   await expect(documentLink).toHaveAttribute("class", "blinkingText");
   //await page.pause();
+});
+
+test.only("Child windows", async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const userName = page.locator("input#username");
+
+  await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+  const documentLink = page.locator("[href*='documents-request']");
+
+  const [newPage] = await Promise.all([
+    context.waitForEvent("page"),
+    documentLink.click(),
+  ]);
+
+  const text = await newPage.locator(".red").textContent();
+
+  const arrayText = text.split("@");
+  const domain = arrayText[1].split(" ")[0];
+
+  await userName.fill(domain);
+  await page.pause();
 });

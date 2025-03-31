@@ -47,7 +47,7 @@ test("UI Controls", async ({ page }) => {
   //await page.pause();
 });
 
-test.only("Child windows", async ({ browser }) => {
+test("Child windows", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
   const userName = page.locator("input#username");
@@ -66,5 +66,5 @@ test.only("Child windows", async ({ browser }) => {
   const domain = arrayText[1].split(" ")[0];
 
   await userName.fill(domain);
-  await page.pause();
+  //await page.pause();
 });

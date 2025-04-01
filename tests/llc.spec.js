@@ -18,4 +18,10 @@ test("Playwright Special locators", async ({ page }) => {
   expect(visible).toBeTruthy();
 
   await page.getByRole("link", { name: "Shop" }).click();
+
+  await page
+    .locator("app-card")
+    .filter({ hasText: "Blackberry" })
+    .getByRole("button")
+    .click();
 });

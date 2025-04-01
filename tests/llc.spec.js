@@ -10,4 +10,12 @@ test("Playwright Special locators", async ({ page }) => {
   await page.getByPlaceholder("Password").fill("testpassword");
 
   await page.getByRole("button", { name: "Submit" }).click();
+
+  const visible = await page
+    .getByText("Success! The Form has been submitted successfully!.")
+    .isVisible();
+
+  expect(visible).toBeTruthy();
+
+  await page.getByRole("link", { name: "Shop" }).click();
 });

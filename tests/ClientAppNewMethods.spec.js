@@ -32,5 +32,8 @@ test("broswer context validating login", async ({ page }) => {
   await page.getByRole("button", { name: " Indonesia" }).click();
 
   await page.getByText("PLACE ORDER").click();
+  await page.waitForSelector("text=Thankyou for the order.", {
+    timeout: 15000,
+  });
   await expect(page.getByText("Thankyou for the order.")).toBeVisible();
 });
